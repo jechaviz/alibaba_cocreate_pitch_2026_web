@@ -4,6 +4,12 @@ This is a no-build Vue 3 CDN demo for the `ai_startup_pitch` track. It presents 
 
 ## Preview
 
+Public demo:
+
+```text
+https://jechaviz.github.io/alibaba_cocreate_pitch_2026_web/
+```
+
 Run a static server from this folder:
 
 ```powershell
