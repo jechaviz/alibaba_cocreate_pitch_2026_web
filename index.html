@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accio Work Commerce Demo</title>
+  <meta name="description" content="AI storefront, sourcing, supplier risk, and unit economics demo for Alibaba CoCreate Pitch 2026." />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@unocss/reset@66.7.0/tailwind.min.css" />
+  <script>
+    window.__unocss = {
+      shortcuts: {
+        panel: 'rounded-lg border border-slate-200 bg-white shadow-sm',
+        eyebrow: 'text-xs font-800 uppercase text-slate-500',
+        btn: 'rounded-md px-3 py-2 text-sm font-800 transition',
+        label: 'text-xs font-800 uppercase text-slate-500'
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime@66.7.0/uno.global.js"></script>
+  <script src="./src/data.js?v=1"></script>
+  <style>
+    [un-cloak]{display:none}
+    :root{
+      --ink:#172033;--muted:#667085;--paper:#f5f7f9;--line:#dde5ee;
+      --blue:#2563eb;--green:#0f9f6e;--amber:#b7791f;--red:#d04545;--violet:#7c3aed;
+      --panel:#ffffff;--soft:#eef3f8;--dark:#121826;
+    }
+    html{background:var(--paper)}
+    body{
+      min-height:100vh;color:var(--ink);background:var(--paper);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    button,input,select{font:inherit}
+    button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(37,99,235,.25);outline-offset:2px}
+    .app-shell{max-width:1440px;margin:0 auto;padding:18px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .mark{width:40px;height:40px;border-radius:8px;background:var(--dark);color:white;display:grid;place-items:center;font-weight:900}
+    .brand h1{font-size:clamp(1.05rem,2vw,1.55rem);font-weight:900;line-height:1.1;margin:0}
+    .brand p{color:var(--muted);font-size:.86rem;margin:.18rem 0 0}
+    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .select,.input{height:38px;border:1px solid var(--line);border-radius:7px;background:white;color:var(--ink);padding:0 10px;min-width:150px}
+    .primary{background:var(--dark);color:white}.secondary{background:white;color:var(--ink);border:1px solid var(--line)}
+    .grid-main{display:grid;grid-template-columns:minmax(300px,1.12fr) minmax(320px,1fr) minmax(320px,.98fr);gap:14px;align-items:start}
+    .panel{border-radius:8px;border:1px solid var(--line);background:var(--panel);box-shadow:0 10px 30px rgba(17,24,39,.06);overflow:hidden}
+    .panel-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .panel-title{font-size:1rem;font-weight:900;margin:0}.panel-sub{font-size:.82rem;color:var(--muted);margin:.2rem 0 0;line-height:1.45}
+    .panel-body{padding:16px}
+    .metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .metric{border-top:3px solid var(--blue);background:#f8fafc;padding:11px;border-radius:7px}
+    .metric strong{display:block;font-size:1.18rem;line-height:1.1}.metric span{display:block;color:var(--muted);font-size:.76rem;margin-top:4px}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;border:1px solid var(--line);padding:5px 9px;font-size:.75rem;font-weight:800;background:#fff}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 auto}
+    .steps{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+    .step{min-width:118px;border:1px solid var(--line);border-radius:7px;background:white;padding:10px;text-align:left}
+    .step.active{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+    .step.done{background:#effaf4;border-color:#b9e6cf}
+    .step b{display:block;font-size:.82rem}.step small{color:var(--muted)}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}
+    .row:last-child{border-bottom:0}
+    .bar{height:8px;border-radius:999px;background:#e8edf3;overflow:hidden;min-width:92px}
+    .bar i{display:block;height:100%;border-radius:999px;background:var(--green)}
+    .bar.warn i{background:var(--amber)}.bar.hot i{background:var(--red)}
+    .control{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-bottom:11px}
+    .control label{color:var(--muted);font-size:.84rem;font-weight:700}
+    .range{width:100%;accent-color:var(--blue)}
+    .supplier-table{width:100%;border-collapse:collapse;font-size:.84rem}
+    .supplier-table th,.supplier-table td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+    .supplier-table th{font-size:.72rem;text-transform:uppercase;color:var(--muted)}
+    .supplier-table tr.active{background:#f0f6ff}
+    .link-button{color:var(--blue);font-weight:900;background:transparent;border:0;padding:0}
+    .storefront{display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:center}
+    .product-visual{height:150px;border:1px solid var(--line);border-radius:8px;background:#f3f6f9;display:grid;place-items:center}
+    .device{width:78px;height:118px;border-radius:26px 26px 14px 14px;background:linear-gradient(180deg,#f9fafb,#dbe5ee);border:1px solid #cbd5e1;position:relative}
+    .device:before{content:"";position:absolute;left:24px;right:24px;top:-12px;height:22px;border-radius:8px;background:#0f172a}
+    .device:after{content:"";position:absolute;left:16px;right:16px;top:44px;height:30px;border-radius:6px;background:#d9f6eb;border:1px solid #96dbc0}
+    .tag-list{display:flex;flex-wrap:wrap;gap:6px}.tag{border-radius:999px;background:#edf2f7;color:#334155;padding:5px 8px;font-size:.74rem;font-weight:800}
+    .task-log{display:grid;gap:8px}.log-item{border-left:3px solid var(--blue);padding-left:10px}.log-item small{color:var(--muted)}
+    .two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .note{background:#f8fafc;border:1px solid var(--line);border-radius:7px;padding:10px;color:#475569;font-size:.84rem;line-height:1.5}
+    @media (max-width:1120px){.grid-main{grid-template-columns:1fr 1fr}.grid-main>.wide{grid-column:1/-1}}
+    @media (max-width:760px){
+      .app-shell{padding:12px}.topbar{align-items:stretch;flex-direction:column}.toolbar{justify-content:stretch}
+      .select,.input,.toolbar button{width:100%}.grid-main{grid-template-columns:1fr}.storefront,.two-col{grid-template-columns:1fr}
+      .metric-grid{grid-template-columns:1fr}.supplier-scroll{overflow-x:auto}.supplier-table{min-width:620px}
+    }
+  </style>
+</head>
+<body>
+  <div id="app"><main class="min-h-screen grid place-items-center text-slate-500">Loading demo...</main></div>
+  <script>
+    const appRoot = document.getElementById('app');
+    const deps = [
+      { name: 'Vue 3', test: () => window.Vue, urls: ['https://cdn.jsdelivr.net/npm/vue@3.5.35/dist/vue.global.prod.js', 'https://unpkg.com/vue@3.5.35/dist/vue.global.prod.js'] },
+      { name: 'vue3-sfc-loader', test: () => window['vue3-sfc-loader'], urls: ['https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.9.5/dist/vue3-sfc-loader.min.js', 'https://unpkg.com/vue3-sfc-loader@0.9.5/dist/vue3-sfc-loader.min.js'] }
+    ];
+
+    function loadScript(url) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.async = false;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error('Failed ' + url));
+        document.head.appendChild(script);
+      });
+    }
+
+    async function loadDependency(dep) {
+      if (dep.test()) return;
+      const errors = [];
+      for (const url of dep.urls) {
+        try {
+          await loadScript(url);
+          if (dep.test()) return;
+        } catch (error) {
+          errors.push(error.message);
+        }
+      }
+      throw new Error(dep.name + ' did not load. ' + errors.join(' | '));
+    }
+
+    function normalizeSfcUrl(url) {
+      if (url.startsWith('./src/') || url.startsWith('/src/')) return url.replace('/src/', './src/');
+      if (url.startsWith('src/')) return './' + url;
+      if (url.startsWith('./components/')) return './src/components/' + url.slice(13);
+      if (url.includes('/components/../')) return url.replace('/components/../', '/');
+      return url;
+    }
+
+    function showHttpRequired() {
+      appRoot.innerHTML = '<main class="min-h-screen grid place-items-center px-4"><section class="panel max-w-xl p-5"><p class="eyebrow">Local server required</p><h1 class="mt-2 text-2xl font-900">Open this demo over HTTP.</h1><p class="mt-2 text-sm text-slate-600">The Vue component loader fetches files from src/. Run: <code>node serve.mjs</code>, then open <code>http://127.0.0.1:8787/</code>.</p></section></main>';
+    }
+
+    async function boot() {
+      try {
+        if (location.protocol === 'file:') {
+          showHttpRequired();
+          return;
+        }
+        for (const dep of deps) await loadDependency(dep);
+        const { loadModule } = window['vue3-sfc-loader'];
+        const options = {
+          moduleCache: { vue: Vue },
+          async getFile(url) {
+            const target = normalizeSfcUrl(url);
+            const response = await fetch(target, { cache: 'no-store' });
+            if (!response.ok) throw new Error('Could not load ' + target);
+            return await response.text();
+          },
+          addStyle(text) {
+            const style = document.createElement('style');
+            style.textContent = text;
+            document.head.appendChild(style);
+          }
+        };
+        const App = Vue.defineAsyncComponent(() => loadModule('./src/App.vue', options));
+        Vue.createApp(App).mount('#app');
+      } catch (error) {
+        console.error(error);
+        appRoot.innerHTML = '<main class="min-h-screen grid place-items-center px-4"><section class="panel max-w-xl p-5"><p class="eyebrow text-rose-700">Boot error</p><h1 class="mt-2 text-2xl font-900">The demo could not start.</h1><p class="mt-2 text-sm text-slate-600">' + error.message + '</p></section></main>';
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>
