@@ -1,11 +1,11 @@
 <template>
-  <main class="app-shell" un-cloak>
+  <main class="app-shell">
     <header class="topbar">
       <div class="brand">
         <div class="mark">AW</div>
         <div>
           <h1>Accio Work commerce launch console</h1>
-          <p>Operational demo for Alibaba CoCreate Pitch 2026: source, model, de-risk, and launch.</p>
+          <p>Operational demo for Alibaba CoCreate Pitch 2026: source, model, de-risk, launch, and prove the competitive edge.</p>
         </div>
       </div>
       <div class="toolbar">
@@ -34,6 +34,16 @@
         :scenario="scenario"
         :metrics="metrics"
         @update-scenario="updateScenario"
+      />
+
+      <CompetitionPanel
+        :modes="data.competition"
+        :active-id="judgeModeId"
+        :product="product"
+        :supplier="supplier"
+        :metrics="metrics"
+        @select-mode="judgeModeId = $event"
+        @generate-proof="generateJudgeProof"
       />
 
       <SupplierPanel
@@ -69,9 +79,10 @@ import EconomicsPanel from './components/EconomicsPanel.vue';
 import SupplierPanel from './components/SupplierPanel.vue';
 import WorkflowPanel from './components/WorkflowPanel.vue';
 import AccioSteps from './components/AccioSteps.vue';
+import CompetitionPanel from './components/CompetitionPanel.vue';
 
 export default {
-  components: { ConceptPanel, EconomicsPanel, SupplierPanel, WorkflowPanel, AccioSteps },
+  components: { ConceptPanel, EconomicsPanel, SupplierPanel, WorkflowPanel, AccioSteps, CompetitionPanel },
   data() {
     const data = window.ACCIO_DEMO_DATA;
     const product = data.products[0];
@@ -79,6 +90,7 @@ export default {
       data,
       productId: product.id,
       supplierId: data.suppliers[0].id,
+      judgeModeId: data.competition[0].id,
       activeStepId: 'discover',
       completedSteps: ['brief'],
       completedAgents: ['agent-brief'],
@@ -99,6 +111,9 @@ export default {
     },
     supplier() {
       return this.data.suppliers.find((item) => item.id === this.supplierId);
+    },
+    judgeMode() {
+      return this.data.competition.find((item) => item.id === this.judgeModeId);
     },
     workflowState() {
       return this.data.workflow.map((step) => ({
@@ -160,6 +175,12 @@ export default {
       if (!this.completedAgents.includes(id)) this.completedAgents.push(id);
       const step = this.data.accioSteps.find((item) => item.id === id);
       this.accioLog.unshift({ title: step.title, detail: step.result });
+    },
+    generateJudgeProof() {
+      this.accioLog.unshift({
+        title: 'Judge proof generated',
+        detail: 'Against ' + this.judgeMode.label + ', Accio ties ' + this.product.name + ' to ' + this.supplier.name + ', live margin, risk evidence, and the launch handoff.'
+      });
     },
     runAccio() {
       const next = this.data.accioSteps.find((step) => !this.completedAgents.includes(step.id));

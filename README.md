@@ -1,6 +1,6 @@
 # Alibaba CoCreate Pitch 2026 Demo Slice
 
-This is a no-build Vue 3 CDN demo for the `ai_startup_pitch` track. It presents an operational AI commerce console for Accio Work: product concept, storefront copy, sourcing workflow, supplier risk, assisted work steps, and live ROI/unit economics.
+This is a no-build Vue 3 CDN demo for the `ai_startup_pitch` track. It presents an operational AI commerce console for Accio Work: product concept, storefront copy, sourcing workflow, supplier risk, assisted work steps, live ROI/unit economics, and a competition-aware judge mode.
 
 ## Preview
 
@@ -23,8 +23,8 @@ Opening `index.html` directly as `file://` will show a local-server notice becau
 
 - `index.html` boots Vue 3, UnoCSS runtime, and `vue3-sfc-loader` from CDN.
 - `src/data.js` contains demo products, suppliers, workflow steps, and Accio Work actions.
-- `src/App.vue` coordinates state, scenario controls, supplier selection, and simulated agent progress.
-- `src/components/*.vue` contains the storefront concept, economics, supplier risk, workflow, and assisted-step panels.
+- `src/App.vue` coordinates state, scenario controls, supplier selection, judge-mode proof, and simulated agent progress.
+- `src/components/*.vue` contains the storefront concept, economics, competitive judge mode, supplier risk, workflow, and assisted-step panels.
 
 ## QA Notes
 

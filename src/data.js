@@ -138,5 +138,47 @@ window.ACCIO_DEMO_DATA = {
     { id: 'agent-rfq', title: 'Draft supplier outreach', result: 'RFQ fields include MOQ, samples, certifications, carton, payment terms.', confidence: 92 },
     { id: 'agent-risk', title: 'Summarize supplier risk', result: 'Highlights compliance gaps, lead-time exposure, and mitigation steps.', confidence: 89 },
     { id: 'agent-store', title: 'Create storefront copy', result: 'PDP title, bullets, bundle offer, and channel-specific hooks.', confidence: 94 }
+  ],
+  competition: [
+    {
+      id: 'search',
+      label: 'search-only sourcing',
+      shortLabel: 'Search-only',
+      altScore: 58,
+      accioScore: 91,
+      timeSaved: '4.5 days',
+      problem: 'Keyword search can surface suppliers, but it leaves MOQ fit, certification evidence, freight impact, RFQ follow-up, and launch economics as manual detective work.',
+      advantage: 'Accio turns the concept brief into supplier filters, RFQ fields, risk evidence, and a live landed-cost model the judge can stress-test immediately.'
+    },
+    {
+      id: 'spreadsheet',
+      label: 'spreadsheet workflows',
+      shortLabel: 'Spreadsheet',
+      altScore: 62,
+      accioScore: 90,
+      timeSaved: '6 handoffs',
+      problem: 'Spreadsheets compare quotes after someone collects them, so assumptions drift from supplier facts and launch decisions are easy to audit only after the fact.',
+      advantage: 'Accio keeps the quote, risk controls, cash need, break-even point, reorder trigger, and storefront plan connected in one operating console.'
+    },
+    {
+      id: 'generic-agent',
+      label: 'generic AI agents',
+      shortLabel: 'Generic agent',
+      altScore: 66,
+      accioScore: 92,
+      timeSaved: '9 prompts',
+      problem: 'Generic agents can draft text, but they do not know the commerce handoffs that matter: RFQs, samples, certifications, freight modes, channel copy, and buyer-ready math.',
+      advantage: 'Accio is specialized for commerce work, so every generated step lands as a sourcing artifact, risk memo, financial model, or launch packet.'
+    },
+    {
+      id: 'research',
+      label: 'ecommerce research tools',
+      shortLabel: 'Research tool',
+      altScore: 64,
+      accioScore: 89,
+      timeSaved: '3 tool hops',
+      problem: 'Research tools explain demand and competition, but they stop before supplier execution, quote validation, compliance evidence, and the launch operating plan.',
+      advantage: 'Accio bridges market insight to action: supplier shortlist, quote packet, product page, bundle, launch budget, and reorder logic for the chosen concept.'
+    }
   ]
 };
